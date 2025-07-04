@@ -11,6 +11,28 @@ const compat = new FlatCompat({
 
 const eslintConfig = [
   ...compat.extends("next/core-web-vitals", "next/typescript"),
+  ...compat.extends("prettier"),
+  {
+    plugins: ["prettier"],
+    rules: {
+      // Prettier rules
+      "prettier/prettier": "error",
+      
+      // React rules
+      "react-hooks/exhaustive-deps": "warn",
+      "react/no-unused-vars": "warn",
+      
+      // TypeScript rules
+      "@typescript-eslint/no-unused-vars": "warn",
+      "@typescript-eslint/no-explicit-any": "warn",
+      
+      // General rules
+      "no-console": "warn",
+      "no-debugger": "error",
+      "prefer-const": "error",
+      "no-var": "error",
+    },
+  },
 ];
 
 export default eslintConfig;
