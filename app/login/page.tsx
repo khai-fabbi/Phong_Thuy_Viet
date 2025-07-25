@@ -1,6 +1,6 @@
 "use client"
 
-// import { Logo } from "@/components/logo";
+import { ForgotPasswordModal } from "@/components/ForgotPasswordModal"
 import { Button } from "@/components/ui/button"
 import {
   Form,
@@ -13,7 +13,9 @@ import {
 import { Input } from "@/components/ui/input"
 import { Separator } from "@/components/ui/separator"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { EyeIcon, EyeOffIcon, LockIcon, MailIcon } from "lucide-react"
 import Link from "next/link"
+import { useState } from "react"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 
@@ -23,6 +25,12 @@ const formSchema = z.object({
 })
 
 const LoginPage = () => {
+  const [showPassword, setShowPassword] = useState(false)
+  const [showForgotPasswordModal, setShowForgotPasswordModal] = useState(false)
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword)
+  }
   const form = useForm<z.infer<typeof formSchema>>({
     defaultValues: {
       email: "",
@@ -36,9 +44,9 @@ const LoginPage = () => {
   }
 
   return (
-    <div className="h-screen flex items-center justify-center">
+    <div className="h-screen flex items-center justify-center bg-[#f3f3f3]">
       <div className="w-full h-full grid lg:grid-cols-2 p-4">
-        <div className="max-w-xs m-auto w-full flex flex-col items-center">
+        <div className="max-w-sm m-auto w-full flex flex-col items-center">
           {/* <Logo className="h-9 w-9" /> */}
           <p className="mt-4 text-[30px] font-bold text-primary-dark">
             Đăng nhập tài khoản
@@ -59,6 +67,7 @@ const LoginPage = () => {
             <form
               className="w-full space-y-4"
               onSubmit={form.handleSubmit(onSubmit)}
+              noValidate
             >
               <FormField
                 control={form.control}
@@ -67,12 +76,15 @@ const LoginPage = () => {
                   <FormItem>
                     <FormLabel>Email Đăng nhập</FormLabel>
                     <FormControl>
-                      <Input
-                        type="email"
-                        placeholder="Email"
-                        className="w-full"
-                        {...field}
-                      />
+                      <div className="bg-white relative flex items-center rounded-md border focus-within:ring-2 focus-within:ring-primary pl-3">
+                        <MailIcon className="h-5 w-5 text-muted-foreground" />
+                        <Input
+                          type="email"
+                          placeholder="Email"
+                          className="w-full !text-base border-0 focus-visible:ring-0 shadow-none"
+                          {...field}
+                        />
+                      </div>
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -85,17 +97,38 @@ const LoginPage = () => {
                   <FormItem>
                     <FormLabel>Mật khẩu</FormLabel>
                     <FormControl>
-                      <Input
-                        type="password"
-                        placeholder="Mật khẩu"
-                        className="w-full"
-                        {...field}
-                      />
+                      <div className="relative bg-white flex items-center rounded-md border focus-within:ring-2 focus-within:ring-primary pl-3 pr-1">
+                        <LockIcon className="h-5 w-5 text-muted-foreground" />
+                        <Input
+                          type={showPassword ? "text" : "password"}
+                          placeholder="Mật khẩu"
+                          className="border-0 !text-base w-full focus-visible:ring-0 shadow-none"
+                          {...field}
+                        />
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          type="button"
+                          onClick={togglePasswordVisibility}
+                        >
+                          {showPassword ? (
+                            <EyeOffIcon className="h-5 w-5 text-muted-foreground" />
+                          ) : (
+                            <EyeIcon className="h-5 w-5 text-muted-foreground" />
+                          )}
+                        </Button>
+                      </div>
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
+              <p
+                className="text-sm cursor-pointer text-muted-foreground hover:underline text-right block"
+                onClick={() => setShowForgotPasswordModal(true)}
+              >
+                Quên mật khẩu?
+              </p>
               <Button type="submit" size="lg" className="mt-4 w-full">
                 Đăng nhập
               </Button>
@@ -103,19 +136,13 @@ const LoginPage = () => {
           </Form>
 
           <div className="mt-5 space-y-5">
-            <Link
-              href="#"
-              className="text-sm block underline text-muted-foreground text-center"
-            >
-              Quên mật khẩu?
-            </Link>
             <p className="text-sm text-center">
               Chưa có tài khoản?
               <Link
                 href="/signup"
-                className="ml-1 underline text-muted-foreground"
+                className="ml-1 font-semibold underline text-primary"
               >
-                Tạo tài khoản
+                Đăng ký
               </Link>
             </p>
           </div>
@@ -138,6 +165,11 @@ const LoginPage = () => {
           </p>
         </div>
       </div>
+
+      <ForgotPasswordModal
+        open={showForgotPasswordModal}
+        onOpenChange={setShowForgotPasswordModal}
+      />
     </div>
   )
 }

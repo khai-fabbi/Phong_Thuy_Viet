@@ -46,7 +46,7 @@ const SignUpPage = () => {
   return (
     <div className="h-screen flex items-center justify-center">
       <div className="w-full h-full grid lg:grid-cols-2 p-4">
-        <div className="max-w-xs m-auto w-full flex flex-col items-center">
+        <div className="max-w-sm m-auto w-full flex flex-col items-center">
           <p className="mt-4 text-[30px] font-bold text-primary-dark">
             Đăng ký tài khoản
           </p>
