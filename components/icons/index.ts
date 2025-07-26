@@ -1,1 +1,5 @@
 export { default as ChitIcon } from "./ChitIcon"
+export { default as GoogleLogo } from "./Google"
+export { default as FacebookIcon } from "./Facebook"
+export { default as MetaIcon } from "./MetaIcon"
+export { default as BellIcon } from "./BellIcon"

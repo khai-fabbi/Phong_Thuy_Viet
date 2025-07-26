@@ -17,6 +17,16 @@
   --color-phongthuy-blue: #3b82f6;
   --color-primary-dark: #004540;
   --color-accent-orange: #ff9f25;
+
+  /* Wood smoke */
+  --color-gray-50: #f9f9f9;
+  --color-gray-100: #e7e7e7;
+  --color-gray-300: #b0b0b0;
+  --color-gray-400: #888888;
+  --color-gray-500: #6d6d6d;
+  --color-gray-900: #3d3d3d;
+  --color-gray-950: #151515;
+
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -84,8 +94,14 @@
   --sidebar-accent-foreground: oklch(0.21 0.034 264.665);
   --sidebar-border: oklch(0.928 0.006 264.531);
   --sidebar-ring: oklch(0.707 0.022 261.325);
+
+  /* custom colors */
   --background: oklch(1 0 0);
   --foreground: #1e1e1e;
+  --foreground-dark: #111928;
+
+  /* header */
+  --header-height: 92px;
 }
 
 .dark {
@@ -148,5 +164,63 @@ html {
   .container-lg {
     @apply mx-auto px-4 sm:px-6 lg:px-8;
     max-width: 1400px;
+  }
+
+  /* SVG Animation */
+  .svg-animation {
+    stroke-dashoffset: 100;
+    stroke-dasharray: 100;
+    animation: dash 2s ease forwards;
+  }
+
+  @keyframes dash {
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  /* Link Animation */
+  .text-link {
+    @apply inline-flex relative cursor-pointer;
+  }
+  .text-link::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    height: 2px;
+    bottom: -2px;
+    left: 0;
+    transform-origin: bottom right;
+    transition: transform 0.25s ease-out;
+    @apply bg-primary-dark;
+  }
+  .text-link:hover::after,
+  .text-link-active::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+  }
+
+  .bg-top-banner {
+    background-image:
+      linear-gradient(rgba(0, 69, 64, 0.5), rgba(0, 0, 0, 0)),
+      url("/top-banner.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  /* Marquee Animation */
+  @keyframes marquee {
+    0% {
+      transform: translateX(100%);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+  }
+
+  .animate-marquee {
+    animation: marquee linear infinite;
   }
 }

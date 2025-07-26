@@ -1,70 +1,109 @@
-'use client'
+"use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog"
 import { useToast } from "@/hooks/useToast"
 import Link from "next/link"
 import { Menu, User, LogOut, Settings } from "lucide-react"
 import { useUserStore } from "@/stores/userStore"
+import { HeaderSearch } from "../common"
+import Image from "next/image"
 
 export default function Header() {
   const [showLogoutDialog, setShowLogoutDialog] = useState(false)
+  const [hasScrolled, setHasScrolled] = useState(false)
   const { logout } = useUserStore()
   const toast = useToast()
+
+  // handle scroll
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 0) {
+        setHasScrolled(true)
+      } else {
+        setHasScrolled(false)
+      }
+    }
+
+    window.addEventListener("scroll", handleScroll)
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll)
+    }
+  }, [])
 
   const handleLogout = () => {
     setShowLogoutDialog(false)
     logout()
-    toast.success('Đã đăng xuất thành công!')
+    toast.success("Đã đăng xuất thành công!")
   }
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-16 items-center">
+    <header
+      className={`sticky top-0 transition-all z-50 bg-white/70 backdrop-blur h-16 md:h-[var(--header-height)] ${hasScrolled ? "shadow-md" : ""}`}
+    >
+      <div className="container flex h-full items-center">
         {/* Logo */}
         <div className="mr-8 flex items-center space-x-2">
-          <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-            <span className="text-primary-foreground font-bold text-sm">PT</span>
+          <Link href="/">
+            <Image
+              src="/Logo.png"
+              alt="Phong Thủy Việt"
+              width={400}
+              height={400}
+              className="size-16.5"
+            />
+          </Link>
+          <div className="flex flex-col font-bold uppercase">
+            <span className="text-accent-orange">Phân hội</span>
+            <span className="text-primary-dark">
+              KHoa học địa lý phong thủy việt nam
+            </span>
           </div>
-          <span className="text-xl font-bold">Phong Thủy Việt</span>
         </div>
 
-        {/* Navigation */}
-        <nav className="hidden md:flex items-center space-x-6 text-sm font-medium">
-          <Link href="/" className="transition-colors hover:text-primary">
-            Trang chủ
-          </Link>
-          <Link href="#services" className="transition-colors hover:text-primary">
-            Dịch vụ
-          </Link>
-          <Link href="#about" className="transition-colors hover:text-primary">
-            Về chúng tôi
-          </Link>
-          <Link href="#contact" className="transition-colors hover:text-primary">
-            Liên hệ
-          </Link>
-        </nav>
-
-        <div className="ml-auto flex items-center space-x-4">
+        <div className="ml-auto flex items-center space-x-2 md:space-x-4">
+          <HeaderSearch className="hidden md:block" />
           {/* User Menu */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="ghost" className="relative h-8 w-8 rounded-full">
-                <Avatar className="h-8 w-8 cursor-pointer">
-                  <AvatarImage src="/avatars/01.png" alt="@user" />
+              <div className="relative">
+                <Avatar className="transition-all cursor-pointer size-8 md:size-11 rounded-2xl">
+                  <AvatarImage
+                    src="https://github.com/shadcn.png"
+                    alt="@shadcn"
+                  />
                   <AvatarFallback>
                     <User className="h-4 w-4" />
                   </AvatarFallback>
                 </Avatar>
-              </Button>
+
+                <div className="h-3 w-3 ring-[2px] ring-background rounded-full bg-green-500 absolute -top-0.5 -right-0.5"></div>
+              </div>
             </DropdownMenuTrigger>
             <DropdownMenuContent className="w-56" align="end" forceMount>
               <DropdownMenuLabel className="font-normal">
                 <div className="flex flex-col space-y-1">
-                  <p className="text-sm font-medium leading-none">Nguyễn Văn A</p>
+                  <p className="text-sm font-medium leading-none">
+                    Nguyễn Văn A
+                  </p>
                   <p className="text-xs leading-none text-muted-foreground">
                     user@example.com
                   </p>
@@ -82,8 +121,8 @@ export default function Header() {
                 <span>Cài đặt</span>
               </DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem 
-                className='text-destructive'
+              <DropdownMenuItem
+                className="text-destructive"
                 onClick={() => setShowLogoutDialog(true)}
               >
                 <LogOut className="mr-2 h-4 w-4 text-destructive" />
@@ -105,20 +144,24 @@ export default function Header() {
           <DialogHeader>
             <DialogTitle>Xác nhận đăng xuất</DialogTitle>
             <DialogDescription>
-              Bạn có chắc chắn muốn đăng xuất khỏi tài khoản? Bạn sẽ cần đăng nhập lại để tiếp tục sử dụng.
+              Bạn có chắc chắn muốn đăng xuất khỏi tài khoản? Bạn sẽ cần đăng
+              nhập lại để tiếp tục sử dụng.
             </DialogDescription>
           </DialogHeader>
           <DialogFooter>
-            <Button variant="outline" onClick={() => setShowLogoutDialog(false)}>
+            <Button
+              variant="outline"
+              onClick={() => setShowLogoutDialog(false)}
+            >
               Hủy
             </Button>
             <Button variant="destructive" onClick={handleLogout}>
-              <LogOut className="mr-2 h-4 w-4" />
               Đăng xuất
+              <LogOut className="ml-1.5 h-4 w-4" />
             </Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
     </header>
   )
-} 
+}
