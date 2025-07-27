@@ -1,7 +1,5 @@
-import React from "react"
-import CategoryTitle from "./CategoryTitle"
+import { ExpertCard } from "@/components/card"
 import { ChitIcon } from "@/components/icons"
-import Link from "next/link"
 import {
   Carousel,
   CarouselContent,
@@ -9,27 +7,30 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel"
-import { Card, CardContent } from "@/components/ui/card"
-import { ExpertCard } from "@/components/card"
+import { cn } from "@/lib/utils"
+import React from "react"
 
-type Props = {}
+type Props = {
+  title: string
+  subTitle: string
+  containerClassName?: string
+}
 
-const SuggestedExperts = (props: Props) => {
+const ListExpert = ({ title, subTitle, containerClassName }: Props) => {
   return (
-    <section className="rounded-2xl px-6 py-8 bg-primary-dark text-white space-y-6">
+    <section
+      className={cn(
+        "rounded-2xl px-6 py-8 bg-primary-dark text-white space-y-6",
+        containerClassName
+      )}
+    >
       {/* title */}
-      <div className={"flex justify-between items-center gap-x-2"}>
-        <h2 className="text-lg font-semibold flex-1 flex items-center gap-x-2">
-          <ChitIcon color="white" />
-          Gợi ý chuyên gia
+      <div className="flex flex-col gap-4">
+        <h2 className="text-2xl font-bold flex-1 flex items-center gap-x-2">
+          <ChitIcon color="currentColor" />
+          {title}
         </h2>
-
-        <Link
-          href={"/danh-sach-chuyen-gia"}
-          className="text-sm text-white hover:underline"
-        >
-          Xem tất cả
-        </Link>
+        <p className="font-semibold">{subTitle}</p>
       </div>
 
       <div className="px-2">
@@ -63,4 +64,4 @@ const SuggestedExperts = (props: Props) => {
   )
 }
 
-export default SuggestedExperts
+export default ListExpert

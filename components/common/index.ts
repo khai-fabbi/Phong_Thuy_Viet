@@ -1,2 +1,6 @@
 export { default as HeaderSearch } from "./HeaderSearch"
 export { default as AvatarGroup } from "./AvatarGroup"
+export { default as Banner } from "./Banner"
+export { default as NavigationBar } from "./NavigationBar"
+export { default as Title } from "./Title"
+export { default as BreadCrumbPrimary } from "./BreadCrumbPrimary"
