@@ -52,7 +52,7 @@ const LoginPage = () => {
   }
 
   return (
-    <div className="h-screen flex items-center justify-center bg-[#f3f3f3]">
+    <div className="min-h-screen flex items-center justify-center">
       <div className="size-full grid lg:grid-cols-2 p-4">
         <div className="max-w-sm m-auto w-full space-y-4">
           <MetaIcon className="block mx-auto" />

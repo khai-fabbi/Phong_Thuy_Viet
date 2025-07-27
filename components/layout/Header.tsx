@@ -130,6 +130,9 @@ export default function Header() {
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
+          <Link href="/login" className="hidden md:block">
+            <Button variant="default"> Đăng nhập </Button>
+          </Link>
 
           {/* Mobile Menu */}
           <Button variant="ghost" size="icon" className="md:hidden">

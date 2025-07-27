@@ -1,46 +1,49 @@
 "use client"
 
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog"
-import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
 import { useToast } from "@/hooks/useToast"
 import {
-  ArrowRight,
-  Building,
-  Calendar,
-  CheckCircle,
-  Clock,
-  Home as HomeIcon,
-  Mail,
-  MapPin,
-  Phone,
-  Star,
-} from "lucide-react"
-import Link from "next/link"
-import { TopBanner } from "./_components"
+  AcademicsAndResearch,
+  AffiliateOrganization,
+  ArticleContainer,
+  ContactSection,
+  EventContainer,
+  NewsContainer,
+  Overview,
+  SuggestedExperts,
+  TopBanner,
+  TranningCourseContainer,
+} from "./_components"
 
 export default function Home() {
-  const toast = useToast()
   return (
     <div>
       {/* Hero Section */}
       <TopBanner />
+      <div className="container py-6">
+        <div className="grid grid-cols-2 gap-6">
+          <Overview />
+          <NewsContainer />
+          <div className="col-span-2">
+            <ArticleContainer />
+          </div>
+
+          <div className="col-span-2 ">
+            <SuggestedExperts />
+          </div>
+        </div>
+
+        <div className="mt-10 grid grid-cols-2 gap-6">
+          <TranningCourseContainer />
+          <EventContainer />
+        </div>
+
+        <div className="mt-10 grid grid-cols-3 gap-6">
+          <AcademicsAndResearch />
+          <AcademicsAndResearch />
+          <AffiliateOrganization />
+        </div>
+      </div>
+      <ContactSection />
     </div>
   )
 }

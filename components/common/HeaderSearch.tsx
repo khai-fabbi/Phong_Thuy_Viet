@@ -25,7 +25,7 @@ const HeaderSearch = ({
   }
 
   return (
-    <div className={cn("relative bg-gray-50", className)}>
+    <div className={cn("relative bg-gray-50 rounded-lg", className)}>
       <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 size-5 text-foreground svg-animation" />
       <Input
         type="text"

@@ -68,7 +68,7 @@ const SignUpPage = () => {
   const isAgree = form.watch("agree")
 
   return (
-    <div className="h-screen flex items-center justify-center bg-[#f3f3f3]">
+    <div className="flex items-center justify-center min-h-screen">
       <div className="size-full grid lg:grid-cols-2 p-4">
         <div className="max-w-sm m-auto w-full space-y-4">
           <MetaIcon className="block mx-auto" />
