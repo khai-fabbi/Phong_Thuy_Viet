@@ -111,7 +111,7 @@ export default function Header() {
               </DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuItem asChild>
-                <Link href="/profile">
+                <Link href="/trang-ca-nhan">
                   <User className="mr-2 h-4 w-4" />
                   <span>Hồ sơ</span>
                 </Link>

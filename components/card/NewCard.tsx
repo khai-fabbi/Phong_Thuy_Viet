@@ -365,7 +365,7 @@ const NewCard = ({
           {/* Tiêu đề và mô tả */}
           <div className="mb-3">
             <Link href={`/news/${article.id}`}>
-              <h4 className="font-semibold text-base mb-1 line-clamp-2 group-hover:text-primary-dark transition-colors">
+              <h4 className="font-semibold text-base mb-1 line-clamp-1 group-hover:text-primary-dark transition-colors">
                 {article.title}
               </h4>
             </Link>
