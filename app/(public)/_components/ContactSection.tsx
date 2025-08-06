@@ -8,7 +8,7 @@ import React from "react"
 const ContactSection = () => {
   const toast = useToast()
   return (
-    <section>
+    <section id="contact">
       <div className="h-[114px] bg-[url('/contact-bg.png')] bg-cover bg-center bg-no-repeat" />
       <div className="bg-[#F1F0ED]">
         <div className="container flex items-center justify-center pt-10 gap-x-5">
